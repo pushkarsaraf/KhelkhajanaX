@@ -1,0 +1,125 @@
+<div class="container-fluid">
+  <div class="row">
+    <div style="height: 50px">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <mat-card [class.mat-elevation-z24]="true" class="col-md-4" style="margin: 10px;">
+      <div style="height: 10px"></div>
+      <div *ngIf="exists">
+        <div class="row justify-content-center">
+          <h4>Log into Khelkhajana</h4>
+        </div>
+        <div class="row justify-content-center">
+          <p>Or <a (click)="exists=false" href="">Request Account</a></p>
+        </div>
+        <form (ngSubmit)="loginWithEmail()">
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field class="example-full-width">
+                <input [formControl]="emailFC" autocomplete="email" matInput placeholder="Email" required type="email">
+                <mat-error *ngIf="emailFC.invalid">{{getErrorMessageEmail()}}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <mat-form-field class="example-full-width">
+                <input [formControl]="passwordFC" autocomplete="password" matInput placeholder="Password" required
+                       type="password">
+                <mat-error *ngIf="emailFC.invalid">{{getErrorMessagePassword()}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <button *ngIf="!(emailFC.invalid||passwordFC.invalid)" class="example-full-width" mat-raised-button
+                      style="background-color: black; color: white;"
+                      type="submit">Log In
+              </button>
+              <button *ngIf="(emailFC.invalid||passwordFC.invalid)" class="example-full-width" disabled
+                      mat-raised-button
+                      style="background-color: slategray; color: white;" type="submit">Log In
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+      <div *ngIf="!exists">
+        <div class="row justify-content-center">
+          <h4>Request Account</h4>
+        </div>
+        <div class="row justify-content-center">
+          <p>Already have an account?<a (click)="exists=true">Log In</a></p>
+        </div>
+        <form>
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field class="example-full-width">
+                <input [autofocus]="true" [formControl]="firstNameFC" autocomplete="given-name" matInput
+                       placeholder="First Name" required>
+                <mat-error *ngIf="passwordFC1.invalid">{{getErrorMessageFirstName()}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <mat-form-field class="example-full-width">
+                <input [formControl]="lastNameFC" autocomplete="family-name" matInput placeholder="Last Name" required>
+                <mat-error *ngIf="passwordFC1.invalid">{{getErrorMessageLastName()}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <mat-form-field class="example-full-width">
+                <input [formControl]="emailFC1" autocomplete="email" matInput placeholder="Email Address"
+                       required type="email">
+                <mat-error *ngIf="emailFC1.invalid">{{getErrorMessageEmail1()}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <mat-form-field class="example-full-width">
+                <input [formControl]="passwordFC1" autocomplete="password" matInput placeholder="Password"
+                       required type="password">
+                <mat-error *ngIf="passwordFC1.invalid">{{getErrorMessagePassword1()}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <button (click)="requestWithEmail()"
+                      *ngIf="!(passwordFC1.invalid||emailFC1.invalid||firstNameFC.invalid||lastNameFC.invalid)"
+                      class="example-full-width" mat-raised-button style="background-color: black; color: white;"
+                      type="submit">Submit
+              </button>
+
+              <button (click)="requestWithEmail()"
+                      *ngIf="(passwordFC1.invalid||emailFC1.invalid||firstNameFC.invalid||lastNameFC.invalid)"
+                      class="example-full-width" disabled mat-raised-button
+                      style="background-color: slategray; color: white;" type="submit">Submit
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+<!--      GOOGLE-->
+<!--      <div style="height: 30px;"></div>-->
+<!--      <div class="row justify-content-center" style="color: lightslategrey;">-->
+<!--        <h6>Or continue with</h6>-->
+<!--      </div>-->
+<!--      <div class="row">-->
+<!--        <div class="col-12">-->
+<!--          <button (click)="loginWithGoogle()" class="example-full-width" mat-raised-button-->
+<!--                  style="background-color: #DD4B39; color: white;">Google-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div style="height: 24px;"></div>
+      <div class="row justify-content-center" style="color: lightslategrey;">
+        <a (click)="forgotLogin()">Forgot Login?</a>
+      </div>
+    </mat-card>
+    <div class="col-md-4"></div>
+  </div>
+</div>
+<div class="bg"></div>

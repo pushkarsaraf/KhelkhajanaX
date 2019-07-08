@@ -1,0 +1,17 @@
+
+<div class="bg"></div>
+<div class="container">
+  <app-top-bar></app-top-bar>
+  <div class="row" style="height: 15px;"></div>
+  <div class="row">
+    <h4>Curated Lists</h4>
+  </div>
+  <div class="row">
+    <div *ngFor="let list of lists" (click)="gotoList(list.title)" class="col-4">
+      <mat-card>
+        <h5><em>{{list.title}}</em></h5>
+        <h6>No of Cards: {{list.cards}}</h6>
+      </mat-card>
+    </div>
+  </div>
+</div>

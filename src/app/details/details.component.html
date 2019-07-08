@@ -1,0 +1,158 @@
+<!--suppress JSUnusedGlobalSymbols, HtmlFormInputWithoutLabel -->
+<div class="row">
+  <div style="position: fixed" class="col">
+    <img style="width: 250px;height:400px;" [src]="card.img" alt="image that describes the given activity">
+  </div>
+  <div class="col" style="height: 400px; margin-left: 250px;">
+    <div class="container"
+         style="padding-left: 15px;padding-bottom: 15px; margin-left: 15px; margin-top:0; padding-top:0">
+      <div class="row">
+        <h4 style="margin-top:10px">{{card.title}}</h4>
+        <mat-chip
+          style="background-color: #00B4CC; margin: 10px 20px 5px 5px;">
+          {{activityType[card.activityType]}}
+        </mat-chip>
+        <span class="example-spacer"></span>
+        <button [mat-dialog-close]="true" mat-icon-button>
+          <mat-icon>
+            close
+          </mat-icon>
+        </button>
+      </div>
+      <div class="row justify-content-end">
+        <div *ngIf="!isTitle">
+          <button (click)="isTitle = !isTitle" mat-stroked-button>
+            Add to list
+          </button>
+        </div>
+        <div *ngIf="isTitle">
+          <mat-form-field appearance="legacy">
+            <mat-label>
+              List Title
+            </mat-label>
+            <input matInput [(ngModel)]="title">
+          </mat-form-field>
+          <button (click)="isTitle = !isTitle; addToPlaylist()" mat-icon-button>
+            <mat-icon>
+              done
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+      <div style="margin-left: 10px" class="row">
+        Concepts: {{card.conceptsEng}}<br/>
+        Subjects: {{card.subjects}}<br/>
+        Levels:   {{card.levels}}<br/>
+        Tool: {{card.tools}}<br/>
+        How to play: <div *ngIf="!(card.videoLink.length > 1)">{{card.how2Play}}</div><br/>
+      </div>
+      <div *ngIf="card.videoLink.length > 1" class="row" style="margin: 10px">
+        <iframe style="margin: auto" width="auto" height="auto" [src]="sanitize(card.videoLink)"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+      <div style="margin-left: 10px; margin-top: 10px" class="row">
+        <div class="col">
+          <div class="row">
+            Interest:
+          </div>
+          <div class="row">
+            <mat-icon style="color: orangered" *ngFor="let i of generateArray(card.ratingInterest/2)">star
+            </mat-icon>
+            <mat-icon style="color: orangered" *ngFor="let i of generateArrayBordered(card.ratingInterest/2)">
+              star_border
+            </mat-icon>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            Attention:
+          </div>
+          <div class="row">
+            <mat-icon style="color: purple" *ngFor="let i of generateArray(card.ratingInterest/2)">star</mat-icon>
+            <mat-icon style="color: purple" *ngFor="let i of generateArrayBordered(card.ratingInterest/2)">
+              star_border
+            </mat-icon>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            User Rating
+          </div>
+          <div class="row">
+            <mat-icon style="color: dodgerblue" *ngFor="let i of generateArray(card.ratingInterest/2)">star
+            </mat-icon>
+            <mat-icon style="color: dodgerblue" *ngFor="let i of generateArrayBordered(card.ratingInterest/2)">
+              star_border
+            </mat-icon>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <button style="padding:0" *ngIf="!(rate>1)" disabled mat-icon-button>
+            <mat-icon style="padding: 0" (click)="rate=2;rateIt()">star</mat-icon>
+          </button>
+          <button *ngIf="rate>1" mat-icon-button>
+            <mat-icon (click)="rate=2;rateIt()">star</mat-icon>
+          </button>
+        </div>
+        <div>
+          <button *ngIf="!(rate>3)" disabled mat-icon-button>
+            <mat-icon (click)="rate=4;rateIt()">star</mat-icon>
+          </button>
+          <button *ngIf="rate>3" mat-icon-button>
+            <mat-icon (click)="rate=4;rateIt()">star</mat-icon>
+          </button>
+        </div>
+        <div>
+          <button *ngIf="!(rate>5)" disabled mat-icon-button>
+            <mat-icon (click)="rate=6;rateIt()">star</mat-icon>
+          </button>
+          <button *ngIf="rate>5" mat-icon-button>
+            <mat-icon (click)="rate=6;rateIt()">star</mat-icon>
+          </button>
+        </div>
+        <div>
+          <button *ngIf="!(rate>7)" disabled mat-icon-button>
+            <mat-icon (click)="rate=8;rateIt()">star</mat-icon>
+          </button>
+          <button *ngIf="rate>7" mat-icon-button>
+            <mat-icon (click)="rate=8;rateIt()">star</mat-icon>
+          </button>
+        </div>
+        <div>
+          <button *ngIf="!(rate>9)" disabled mat-icon-button>
+            <mat-icon (click)="rate=10;rateIt()">star</mat-icon>
+          </button>
+          <button *ngIf="rate>9" mat-icon-button>
+            <mat-icon (click)="rate=10;rateIt()">star</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field style="width: 100%" appearance="standard">
+            <mat-label>
+              Comment
+            </mat-label>
+            <input matInput [(ngModel)]="comment">
+          </mat-form-field>
+        </div>
+        <button (click)="commentIt()" mat-button
+                style="margin-top:auto; margin-bottom: auto; height: auto; color:white; background-color: black">
+          Submit
+        </button>
+      </div>
+      <div class="row">
+        <mat-list>
+          <mat-list-item *ngFor="let comment of card.comments">
+            <mat-icon  matListIcon>account_circle</mat-icon>
+            <h6 matLine>Comment</h6>
+            <p matLine>{{comment}}</p>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+  </div>
+</div>

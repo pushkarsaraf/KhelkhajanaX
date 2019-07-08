@@ -1,0 +1,36 @@
+<div class="row">
+  <div style="height: 20px;"></div>
+</div>
+<div class="row justify-content-center">
+  <div class="col">
+    <div class="row" (click)="gotoHome()">
+      <div style="width: 20px"></div>
+      <div class="example-header-image" mat-card-avatar></div>
+      <div style="width: 10px"></div>
+      <h2>खेलखजाना</h2>
+    </div>
+  </div>
+  <div class="col-12 col-sm-7">
+    <div class="row justify-content-end">
+      <button mat-button style="background-color: black; color: white; margin-top: 10px;" (click)="nav(1)">हमारे बारे में</button>
+      <div style="width: 10px"></div>
+      <button mat-button style="background-color: black; color: white; margin-top: 10px; " (click)="nav(0)">संपर्क</button>
+      <div style="width: 10px;"></div>
+      <button mat-button style="background-color: black; color: white; margin-top: 10px;">योगदान दें</button>
+      <div style="width: 10px;"></div>
+      <button (click)="gotoPlaylists()" mat-button style="background-color: black; color: white; margin-top: 10px;">सूचिया</button>
+      <div style="width: 10px;"></div>
+      <button *ngIf="!isLoggedIn" (click)="logIn()" mat-button style="background-color: black; color: white; margin-top: 10px;">Log In</button>
+      <div style="width: 10px;"></div>
+      <button *ngIf="isLoggedIn" (click)="logOut()" mat-button style="background-color: black; color: white; margin-top: 10px;">Log Out</button>
+      <div style="width: 10px;"></div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div style="height: 10px;"></div>
+</div>
+<mat-divider></mat-divider>
+<div class="row">
+  <div style="height: 15px;"></div>
+</div>

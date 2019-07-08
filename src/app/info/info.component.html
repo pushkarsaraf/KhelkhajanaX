@@ -1,0 +1,43 @@
+<app-top-bar></app-top-bar>
+<div class="bg">
+  <div class="row" style="height:20%"></div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <mat-card *ngIf="contact" style="padding: 5px; margin: 5px" class="mat-elevation-z12">
+        <h4 style="margin:auto; width: fit-content">संपर्क</h4>
+        <div>
+          <p>ईमेल - learningcompanions2018@gmail.com</p>
+        </div>
+      </mat-card>
+      <mat-card *ngIf="social">
+        <h4 style="margin:auto; width: fit-content">हमारे बारे में</h4>
+        <mat-list style="z-index: 5">
+          <mat-list-item>
+            <mat-icon matListIcon>play_circle_filled</mat-icon>
+            <h5 matLine>यूट्यूब</h5>
+            <a style="cursor: pointer" matLine href="https://www.youtube.com/channel/UCAaChi1EGRYK1s9I5Y_VjDw">https://www.youtube.com/channel/UCAaChi1EGRYK1s9I5Y_VjDw</a>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListIcon>supervised_user_circlea</mat-icon>
+            <h6 matLine>फेसबुक</h6>
+            <a target="_blank" href="https://www.facebook.com/learningcompanions" (click)="goto('https://www.facebook.com/learningcompanions')" matLine>https://www.facebook.com/learningcompanions</a>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListIcon>toys</mat-icon>
+            <h6 matLine>इंस्टाग्राम</h6>
+            <a matLine href="https://www.instagram.com/learningcompanions" (click)="goto('https://www.instagram.com/learningcompanions')">https://www.instagram.com/learningcompanions</a>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+      <mat-card *ngIf="home" style="padding: 5px; margin: 5px" class="mat-elevation-z12">
+        <h4 style="margin:auto; width: fit-content">खेलखजाना</h4>
+        <div>
+          <p>'खेलखजाना' शैक्षिक साधनों का एक खुला स्त्रोत है, जो कोई भी बिना कोई मूल्य या शर्त के अपने जरुरत के नुसार
+            उपयोग कर सकता है। उपयोग करिये, योगदान दें और साधन स्त्रोत और संपन्न और प्रभावी बनायें। </p>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

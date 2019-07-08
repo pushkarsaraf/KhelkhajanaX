@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+.fields {
+  margin: 10px;
+}
+
+
+a {
+  color: dimgrey;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: black;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.everything {
+  left: 0;
+  top: 0;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #4000;
+}
+

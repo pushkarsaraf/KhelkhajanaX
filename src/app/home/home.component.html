@@ -1,0 +1,448 @@
+<div class="container-fluid">
+  <app-top-bar></app-top-bar>
+  <div class="row justify-content-center">
+    <div class="col"></div>
+    <div class="col-sm-7 col-10">
+      <p style="text-align: center">'खेलखजाना' शैक्षिक साधनों का एक खुला स्त्रोत है, जो कोई भी बिना कोई मूल्य या शर्त के
+        अपने जरुरत के नुसार उपयोग कर सकता है। उपयोग करिये, योगदान दें और साधन स्त्रोत और संपन्न और प्रभावी बनायें। </p>
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-sm-5 col-8">
+      <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip (removed)="remove(term)" *ngFor="let term of terms"
+                    [removable]="removable" [selectable]="selectable">
+            {{term}}
+            <mat-icon *ngIf="removable" matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input (matChipInputTokenEnd)="add($event)"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 placeholder="Search for terms...">
+        </mat-chip-list>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row justify-content-center">
+    <button (click)="sadhan=0; submit()" [ngClass]="{'whiteBtn': !(sadhan===0) , 'blackBtn': sadhan===0}"
+            mat-button>{{activityType[0]}}
+    </button>
+    <div style="width: 10px"></div>
+    <button (click)="sadhan=1; submit()" [ngClass]="{'whiteBtn': !(sadhan===1) , 'blackBtn': sadhan===1}" mat-button>
+      {{activityType[1]}}
+    </button>
+    <div style="width: 10px"></div>
+    <button (click)="sadhan=2; submit()" [ngClass]="{'whiteBtn': !(sadhan===2) , 'blackBtn': sadhan===2}"
+            mat-button>{{activityType[2]}}
+    </button>
+  </div>
+  <div class="row">
+    <div style="height: 10px;"></div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="row">
+    <div style="height: 10px;"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 col">
+      <div style="height: 10px"></div>
+      <div class="container">
+        <div class="row">
+          <div style="height: 10px"></div>
+        </div>
+        <div class="row justify-content-center">
+          <h4>Filters</h4>
+        </div>
+        <mat-accordion>
+          <!--    subject-->
+          <div class="row">
+            <div class="col-11">
+              <mat-expansion-panel style="width:auto">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h5>विषय</h5>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{subject}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row">
+                  <mat-radio-group (change)="submit()" [(ngModel)]="subject" required>
+                    <div *ngFor="let vishay of subjects" class="col">
+                      <mat-radio-button [value]="vishay">
+                        <h6>{{vishay}}</h6>
+                      </mat-radio-button>
+                    </div>
+                  </mat-radio-group>
+                </div>
+              </mat-expansion-panel>
+            </div>
+            <button class="col-1" mat-icon-button *ngIf="subject!==null" (click)="removeSubject()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+          <div class="row">
+            <div style="height: 10px"></div>
+          </div>
+
+          <!--    concept-->
+          <div *ngIf="subject=='गणित'" class="row">
+            <div class="col-11">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h5>गणित</h5>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{math}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-radio-group (change)="submit()" [(ngModel)]="math">
+                  <div class="row">
+                    <div *ngFor="let concept of mathConcepts" class="col">
+                      <mat-radio-button [value]="concept">
+                        {{concept}}
+                      </mat-radio-button>
+                    </div>
+                  </div>
+                </mat-radio-group>
+              </mat-expansion-panel>
+            </div>
+            <button mat-icon-button *ngIf="math!==null" class="col-1" (click)="removeMath()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+          <div *ngIf="subject=='भाषा'" class="row">
+            <div class="col-11">
+              <mat-expansion-panel style="width: auto">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h5>भाषा</h5>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{english}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-radio-group (change)="submit()" [(ngModel)]="english">
+                  <div class="row">
+                    <div *ngFor="let concept of englishConcepts" class="col">
+                      <mat-radio-button [value]="concept">
+                        {{concept}}
+                      </mat-radio-button>
+                    </div>
+                  </div>
+                </mat-radio-group>
+              </mat-expansion-panel>
+            </div>
+            <button class="col-1" mat-icon-button *ngIf="english!==null" (click)="removeEnglish()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="subject=='गणित'||subject=='भाषा'" class="row">
+            <div style="height: 10px"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-11">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h5>स्तर</h5>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{class}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row justify-content-end">
+                  <mat-slide-toggle [(ngModel)]="kg" [checked]="false">KG?
+                  </mat-slide-toggle>
+                </div>
+
+                <div *ngIf="!kg" class="row">
+                  <mat-slider (change)="submit()" [(ngModel)]="class" [step]="1" [thumbLabel]="true" [tickInterval]="1"
+                              max="10" min="1"
+                              style="width: 80%; margin: auto"></mat-slider>
+                </div>
+                <div *ngIf="kg">
+                  <mat-radio-group (change)="submit()" [(ngModel)]="class">
+                    <mat-radio-button value="0">
+                      KG1
+                    </mat-radio-button>
+                    <mat-radio-button value="0.5">
+                      KG2
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </mat-expansion-panel>
+            </div>
+            <button mat-icon-button class="col-1" *ngIf="class!==null" (click)="removeClass()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div class="row">
+            <div style="height: 10px"></div>
+          </div>
+
+          <!--    sadhan prakar-->
+          <div class="row">
+            <div class="col-11">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h5>साधनप्रकार</h5>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{activityType[sadhan]}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-radio-group (change)="submit()" [(ngModel)]="sadhan">
+                  <div class="row">
+                    <div *ngFor="let activity of activityType;let i = index" class="col">
+                      <mat-radio-button [value]="i">
+                        {{activity}}
+                      </mat-radio-button>
+                    </div>
+                  </div>
+                </mat-radio-group>
+              </mat-expansion-panel>
+            </div>
+            <button class="col-1" mat-icon-button (click)="removeSadhan()" *ngIf="sadhan!==0">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div class="row">
+            <div style="height: 10px"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-11">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h5>उम्र</h5>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{age}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row">
+                  <div class="col offset-1">
+                    <mat-slider (change)="submit()" [(ngModel)]="age" [thumbLabel]="true" [tickInterval]="1" max="15"
+                                min="3"
+                                style="width: 100%;"
+                                value="age"></mat-slider>
+                  </div>
+                  <div class="col-1"></div>
+                </div>
+              </mat-expansion-panel>
+            </div>
+            <button class="col-1" mat-icon-button *ngIf="age!==null" (click)="removeAge()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div class="row">
+            <div style="height: 10px"></div>
+          </div>
+          <!--    interest-->
+          <div class="row">
+            <div class="col-11">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h5>दिलचस्पी</h5>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{interest}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row offset-1">
+                  <div class="col">
+                    <div class="row">
+                      <h6>दिलचस्पी</h6>
+                    </div>
+                    <div class="row">
+                      <div>
+                        <button *ngIf="!(ratingInterest==2)" disabled mat-icon-button>
+                          <mat-icon (click)="ratingInterest=2; submit()">sentiment_very_dissatisfied</mat-icon>
+                        </button>
+                        <button *ngIf="ratingInterest==2" mat-icon-button>
+                          <mat-icon (click)="ratingInterest=2; submit()">sentiment_very_dissatisfied</mat-icon>
+                        </button>
+                      </div>
+                      <div>
+                        <button *ngIf="!(ratingInterest==4)" disabled mat-icon-button>
+                          <mat-icon (click)="ratingInterest=4; submit()">sentiment_dissatisfied</mat-icon>
+                        </button>
+                        <button *ngIf="ratingInterest==4" mat-icon-button>
+                          <mat-icon (click)="ratingInterest=4; submit()">sentiment_dissatisfied</mat-icon>
+                        </button>
+                      </div>
+                      <div>
+                        <button *ngIf="!(ratingInterest==6)" disabled mat-icon-button>
+                          <mat-icon (click)="ratingInterest=6; submit()">sentiment_satisfied</mat-icon>
+                        </button>
+                        <button *ngIf="ratingInterest==6" mat-icon-button>
+                          <mat-icon (click)="ratingInterest=6; submit()">sentiment_satisfied</mat-icon>
+                        </button>
+                      </div>
+                      <div>
+                        <button *ngIf="!(ratingInterest==8)" disabled mat-icon-button>
+                          <mat-icon (click)="ratingInterest=8; submit()">sentiment_satisfied_alt</mat-icon>
+                        </button>
+                        <button *ngIf="ratingInterest==8" mat-icon-button>
+                          <mat-icon (click)="ratingInterest=8; submit()">sentiment_satisfied_alt</mat-icon>
+                        </button>
+                      </div>
+                      <div>
+                        <button *ngIf="!(ratingInterest==10)" disabled mat-icon-button>
+                          <mat-icon (click)="ratingInterest=10; submit()">sentiment_very_satisfied</mat-icon>
+                        </button>
+                        <button *ngIf="ratingInterest==10" mat-icon-button>
+                          <mat-icon (click)="ratingInterest=10; submit()">sentiment_very_satisfied</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="row">
+                      <h6>मूल्यांकन</h6>
+                    </div>
+                    <div class="row">
+                      <div>
+                        <button *ngIf="!(rating>1)" disabled mat-icon-button>
+                          <mat-icon (click)="rating=2; submit()">star</mat-icon>
+                        </button>
+                        <button *ngIf="rating>1" mat-icon-button>
+                          <mat-icon (click)="rating=2; submit()">star</mat-icon>
+                        </button>
+                      </div>
+                      <div>
+                        <button *ngIf="!(rating>3)" disabled mat-icon-button>
+                          <mat-icon (click)="rating=4; submit()">star</mat-icon>
+                        </button>
+                        <button *ngIf="rating>3" mat-icon-button>
+                          <mat-icon (click)="rating=4; submit()">star</mat-icon>
+                        </button>
+                      </div>
+                      <div>
+                        <button *ngIf="!(rating>5)" disabled mat-icon-button>
+                          <mat-icon (click)="rating=6; submit()">star</mat-icon>
+                        </button>
+                        <button *ngIf="rating>5" mat-icon-button>
+                          <mat-icon (click)="rating=6; submit()">star</mat-icon>
+                        </button>
+                      </div>
+                      <div>
+                        <button *ngIf="!(rating>7)" disabled mat-icon-button>
+                          <mat-icon (click)="rating=8; submit()">star</mat-icon>
+                        </button>
+                        <button *ngIf="rating>7" mat-icon-button>
+                          <mat-icon (click)="rating=8; submit()">star</mat-icon>
+                        </button>
+                      </div>
+                      <div>
+                        <button *ngIf="!(rating>9)" disabled mat-icon-button>
+                          <mat-icon (click)="rating=10; submit()">star</mat-icon>
+                        </button>
+                        <button *ngIf="rating>9" mat-icon-button>
+                          <mat-icon (click)="rating=10; submit()">star</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="row">
+                      <h6>ध्यान</h6>;
+                    </div>
+                    <div class="row">
+                      <mat-slider (change)="submit()" [(ngModel)]="ratingAttn" [thumbLabel]="true"
+                                  [tickInterval]="1" max="10" min="0"
+                                  step="1"></mat-slider>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </div>
+            <button class="col-1" mat-icon-button *ngIf="ratingInterest!==null||ratingAttn!==null||rating!==null"
+                    (click)="removeInterest()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div class="row">
+            <div style="height: 10px"></div>
+          </div>
+        </mat-accordion>
+      </div>
+    </div>
+    <div class="col-md-8 col">
+      <div class="row">
+        <div class="col">
+          <h5>No of Items: {{filteredSortedCards.length}}</h5>
+        </div>
+        <div class="col-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Sort By</mat-label>
+            <mat-select (selectionChange)="changed()" [(ngModel)]="sortX">
+              <mat-option [value]="0">Attention</mat-option>
+              <mat-option [value]="1">Interest</mat-option>
+              <mat-option [value]="2">Popularity</mat-option>
+              <mat-option [value]="3">Rating</mat-option>
+              <mat-option [value]="4">Relevance</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-6" *ngFor="let card of filteredSortedCards;let i=index">
+          <mat-card (click)="detailsOf(i)" style="width: fit-content;margin-bottom: 50px">
+            <mat-card-header>
+              <mat-card-title style="max-lines: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+                {{card.title}}
+              </mat-card-title>
+              <mat-card-subtitle>
+                {{activityType[0]}}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <img [src]="card.img" alt="image showcasing given activity" mat-card-image
+                 style="height: 201px; width: 301px;"/>
+            <mat-card-content>
+              <p>Class: {{card.levels}}</p>
+              <div class="row">
+                <div class="col text-capitalize">
+                  Concept:
+                </div>
+                <div class="col-8" style="width: 100px; height:60px">
+                  <p>{{card.conceptsEng}}</p>
+                </div>
+              </div>
+              <p>
+                <mat-icon *ngFor="let i of generateArray(card.ratingInterest/2)">star</mat-icon>
+                <mat-icon *ngFor="let i of generateArrayBordered(card.ratingInterest/2)">star_border</mat-icon>
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg">
+</div>
+<button (click)="gotoVolunteer()" [class.mat-elevation-z24]="true" mat-button
+        style="border-radius: 40px; background-color: black; color: white; position: fixed;right:20px; bottom:20px; border: 0;">
+  <mat-icon>add</mat-icon>
+</button>
+

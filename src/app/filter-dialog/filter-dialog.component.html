@@ -1,0 +1,309 @@
+<div class="container">
+  <div class="row">
+    <div style="height: 10px"></div>
+  </div>
+  <div class="row justify-content-center">
+    <h4>Filters</h4>
+  </div>
+  <mat-accordion>
+    <form>
+      <!--    subject-->
+      <div class="row">
+        <div class="col">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>विषय</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                {{subject}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <mat-radio-group  [(ngModel)]="subject" formControlName="subject" required>
+                <div *ngFor="let vishay of subjects" class="col">
+                  <mat-radio-button [value]="vishay">
+                    <h6>{{vishay}}</h6>
+                  </mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+      <div class="row">
+        <div style="height: 10px"></div>
+      </div>
+
+      <!--    concept-->
+      <div *ngIf="subject=='गणित'" class="row">
+        <div class="col">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>गणित</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                {{math}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-radio-group [(ngModel)]="math" formControlName="math">
+              <div class="row">
+                <div *ngFor="let concept of mathConcepts" class="col">
+                  <mat-radio-button [value]="concept">
+                    {{concept}}
+                  </mat-radio-button>
+                </div>
+              </div>
+            </mat-radio-group>
+          </mat-expansion-panel>
+        </div>
+      </div>
+      <div *ngIf="subject=='भाषा'" class="row">
+        <div class="col">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>भाषा</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                {{english}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-radio-group [(ngModel)]="english" formControlName="eng">
+              <div class="row">
+                <div *ngFor="let concept of englishConcepts" class="col">
+                  <mat-radio-button [value]="concept">
+                    {{concept}}
+                  </mat-radio-button>
+                </div>
+              </div>
+            </mat-radio-group>
+          </mat-expansion-panel>
+        </div>
+      </div>
+      <div *ngIf="subject=='गणित'||subject=='भाषा'" class="row">
+        <div style="height: 10px"></div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>स्तर</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                {{class}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row justify-content-end">
+              <mat-slide-toggle [(ngModel)]="kg" [checked]="false">KG?
+              </mat-slide-toggle>
+            </div>
+
+            <div *ngIf="!kg" class="row">
+              <mat-slider [(ngModel)]="class" [step]="1" [thumbLabel]="true" [tickInterval]="1" formControlName="class"
+                          max="10" min="1"
+                          style="width: 80%; margin: auto"></mat-slider>
+            </div>
+            <div *ngIf="kg">
+              <mat-radio-group [(ngModel)]="class" formControlName="class">
+                <mat-radio-button value="0">
+                  KG1
+                </mat-radio-button>
+                <mat-radio-button value="0.5">
+                  KG2
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+      <div class="row">
+        <div style="height: 10px"></div>
+      </div>
+
+      <!--    sadhan prakar-->
+      <div class="row">
+        <div class="col">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>साधनप्रकार</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                {{activityType[sadhan]}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-radio-group [(ngModel)]="sadhan" formControlName="sadhan">
+              <div class="row">
+                <div *ngFor="let activity of activityType;let i = index" class="col">
+                  <mat-radio-button (click)="procesSadhan(i)" [value]="i">
+                    {{activity}}
+                  </mat-radio-button>
+                </div>
+              </div>
+            </mat-radio-group>
+          </mat-expansion-panel>
+        </div>
+      </div>
+      <div class="row">
+        <div style="height: 10px"></div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>उम्र</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                {{age}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col offset-1">
+                <mat-slider [(ngModel)]="age" [thumbLabel]="true" [tickInterval]="1" formControlName="age" max="15"
+                            min="3"
+                            style="width: 100%;"
+                            value="age"></mat-slider>
+              </div>
+              <div class="col-1"></div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+      <div class="row">
+        <div style="height: 10px"></div>
+      </div>
+      <!--    interest-->
+      <div class="row">
+        <div class="col">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>दिलचसबी</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                {{interest}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row offset-1">
+              <div class="col">
+                <div class="row">
+                  <h6>दिलचसबी</h6>
+                </div>
+                <div class="row">
+                  <div>
+                    <button *ngIf="!(ratingInterest==2)" disabled mat-icon-button>
+                      <mat-icon (click)="ratingInterest=2">sentiment_very_dissatisfied</mat-icon>
+                    </button>
+                    <button *ngIf="ratingInterest==2" mat-icon-button>
+                      <mat-icon (click)="ratingInterest=2">sentiment_very_dissatisfied</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button *ngIf="!(ratingInterest==4)" disabled mat-icon-button>
+                      <mat-icon (click)="ratingInterest=4">sentiment_dissatisfied</mat-icon>
+                    </button>
+                    <button *ngIf="ratingInterest==4" mat-icon-button>
+                      <mat-icon (click)="ratingInterest=4">sentiment_dissatisfied</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button *ngIf="!(ratingInterest==6)" disabled mat-icon-button>
+                      <mat-icon (click)="ratingInterest=6">sentiment_satisfied</mat-icon>
+                    </button>
+                    <button *ngIf="ratingInterest==6" mat-icon-button>
+                      <mat-icon (click)="ratingInterest=6">sentiment_satisfied</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button *ngIf="!(ratingInterest==8)" disabled mat-icon-button>
+                      <mat-icon (click)="ratingInterest=8">sentiment_satisfied_alt</mat-icon>
+                    </button>
+                    <button *ngIf="ratingInterest==8" mat-icon-button>
+                      <mat-icon (click)="ratingInterest=8">sentiment_satisfied_alt</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button *ngIf="!(ratingInterest==10)" disabled mat-icon-button>
+                      <mat-icon (click)="ratingInterest=10">sentiment_very_satisfied</mat-icon>
+                    </button>
+                    <button *ngIf="ratingInterest==10" mat-icon-button>
+                      <mat-icon (click)="ratingInterest=10">sentiment_very_satisfied</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="row">
+                  <h6>मूल्यांकन</h6>
+                </div>
+                <div class="row">
+                  <div>
+                    <button *ngIf="!(rating>1)" disabled mat-icon-button>
+                      <mat-icon (click)="rating=2">star</mat-icon>
+                    </button>
+                    <button *ngIf="rating>1" mat-icon-button>
+                      <mat-icon (click)="rating=2">star</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button *ngIf="!(rating>3)" disabled mat-icon-button>
+                      <mat-icon (click)="rating=4">star</mat-icon>
+                    </button>
+                    <button *ngIf="rating>3" mat-icon-button>
+                      <mat-icon (click)="rating=4">star</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button *ngIf="!(rating>5)" disabled mat-icon-button>
+                      <mat-icon (click)="rating=6">star</mat-icon>
+                    </button>
+                    <button *ngIf="rating>5" mat-icon-button>
+                      <mat-icon (click)="rating=6">star</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button *ngIf="!(rating>7)" disabled mat-icon-button>
+                      <mat-icon (click)="rating=8">star</mat-icon>
+                    </button>
+                    <button *ngIf="rating>7" mat-icon-button>
+                      <mat-icon (click)="rating=8">star</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button *ngIf="!(rating>9)" disabled mat-icon-button>
+                      <mat-icon (click)="rating=10">star</mat-icon>
+                    </button>
+                    <button *ngIf="rating>9" mat-icon-button>
+                      <mat-icon (click)="rating=10">star</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="row">
+                  <h6>ध्यान</h6>
+                </div>
+                <div class="row">
+                  <mat-slider [(ngModel)]="ratingAttn" [thumbLabel]="true" [tickInterval]="1" max="10" min="0"
+                              step="1"></mat-slider>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+      <div class="row">
+        <div style="height: 10px"></div>
+      </div>
+    </form>
+  </mat-accordion>
+</div>

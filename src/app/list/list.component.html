@@ -1,0 +1,42 @@
+<app-top-bar></app-top-bar>
+<div class="bg"></div>
+<div class="container" style="z-index: 5">
+  <div class="row" style="height: 15px;"></div>
+  <div class="row align-content-center">
+      <button mat-icon-button (click)="gotoPlaylists()">
+        <mat-icon>arrow_back</mat-icon>
+      </button><h5>{{title}}</h5>
+  </div>
+  <div class="row">
+    <div class="col-4" *ngFor="let card of cards;let i=index">
+      <mat-card  (click)="detailsOf(i)" style="margin-bottom: 50px; width: fit-content">
+        <mat-card-header>
+          <mat-card-title style="max-lines: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+            {{card.title}}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{activityType[0]}}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <img [src]="card.img" alt="image showcasing given activity" mat-card-image
+             style="height: 201px; width: 301px;"/>
+        <mat-card-content>
+          <p>Class: {{card.levels}}</p>
+          <div class="row">
+            <div class="col text-capitalize">
+              Concept:
+            </div>
+            <div class="col-8" style="width: 100px; height:60px">
+              <p class="block-text">{{card.conceptsEng}}</p>
+            </div>
+          </div>
+          <p>
+            <mat-icon *ngFor="let i of generateArray(card.ratingInterest/2)">star</mat-icon>
+            <mat-icon *ngFor="let i of generateArrayBordered(card.ratingInterest/2)">star_border</mat-icon>
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

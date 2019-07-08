@@ -1,0 +1,126 @@
+<mat-toolbar style="background-color: #212121">
+  <h4 style="color: white;">Database</h4>
+</mat-toolbar>
+
+<div class="container-fluid" style=" background-color: #ECEFF1; padding-top: 35px; padding-bottom: 35px ">
+  <mat-card [class.mat-elevation-z18]="true" style="width: 90%; margin:  auto;">
+    <h4>Upload</h4>
+    <mat-card-content>
+      Current no. of entries: {{current}}<br/>
+      Please note that after uploading current entries will be deleted. Please download them first!
+      <br/>
+      <div class="form-group">
+        <div class="container">
+          <div class="row">
+            <div class="col-3">
+              <label for="file">Main File:</label>
+            </div>
+            <div class="col-9">
+              <input (change)="onMainFile($event.target.files)"
+                     accept=".json"
+                     id="file"
+                     type="file">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <label for="levels">Levels File</label>
+            </div>
+            <div class="col-9">
+              <input (change)="onLevelsFile($event.target.files)"
+                     accept=".json"
+                     id="levels"
+                     type="file">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <label for="concepts">Concepts File:</label>
+            </div>
+            <div class="col-9">
+              <input (change)="onConceptsFile($event.target.files)"
+                     accept=".json"
+                     id="concepts"
+                     type="file">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <label for="subjects">Subjects File</label>
+            </div>
+            <div class="col-9">
+              <input (change)="onSubjectsFile($event.target.files)"
+                     accept=".json"
+                     id="subjects"
+                     type="file">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <label for="tool">Tools File</label>
+            </div>
+            <div class="col-9">
+              <input (change)="onToolsFile($event.target.files)"
+                     accept=".json"
+                     id="tool"
+                     type="file">
+            </div>
+          </div>
+        </div>
+        <br/>
+        No of Files: {{size}}
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="row justify-content-end" style="margin-right: 10px">
+        <button (click)="upload().then(null)" mat-button style="background-color: #37474F; color: white;">Upload!
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+
+  <mat-card [class.mat-elevation-z18]="true" style="width: 90%; margin: 35px auto auto auto ;">
+    <h4>Entries</h4>
+    <mat-card-content>
+      Upload Entries.
+      Please note that all previous entries will be removed.
+      <div class="container">
+        <div class="row">
+          <div class="col-3">
+            <label for="entries">Entries File:</label>
+          </div>
+          <div class="col-9">
+            <input (change)="onEntriesFile($event.target.files)"
+                   accept=".json"
+                   id="entries"
+                   type="file">
+          </div>
+        </div>
+      </div>
+      No of Entries: {{entries}}
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="row justify-content-end" style="margin-right: 10px">
+        <button (click)="uploadEntries()" mat-button style="background-color: #37474F; color: white;">Upload!</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card [class.mat-elevation-z18]="true" style="width: 90%; margin: 35px auto auto auto ;">
+    <h4>Download</h4>
+    <mat-card-content>
+      No. of concepts: {{result}}<br/>
+      No. of entries: {{resultEntries}}<br/>
+      Download all entries & concepts!.
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="row justify-content-end" style="margin-right: 10px">
+        <button (click)="download()" mat-button style="background-color: #37474F; color: white;">Download!</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<div
+  style="width: 100%; height: available; background-color: #ECEFF1; z-index: -1; position: absolute; left: 0; top: 0">
+</div>
